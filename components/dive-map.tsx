@@ -15,6 +15,7 @@ import type { DiveSite } from "@/lib/types"
 import { MapMarker } from "./map/map-marker"
 import { getDifficultyIcon } from "@/lib/utils/dive-site"
 import { SpeciesPopup } from "./marine-species/species-popup"
+import { ProfilePage } from "./profile/profile-page"
 
 type DiveSiteWithMarineLife = DiveSite & { marine_life?: string }
 
@@ -356,6 +357,21 @@ export function DiveMap() {
                     <h2 className="text-xl font-bold text-red-600">Mapbox Token Missing</h2>
                     <p className="mt-2 text-sm text-red-500">Add NEXT_PUBLIC_MAPBOX_TOKEN to your .env.local file</p>
                 </div>
+            </div>
+        )
+    }
+
+    // Show Profile Page when profile tab is active
+    if (activeTab === "profile") {
+        return (
+            <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}>
+                <ProfilePage />
+                <BottomNav
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                    onSearchOpen={() => setSearchOpen(true)}
+                    searchOpen={searchOpen}
+                />
             </div>
         )
     }
