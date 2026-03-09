@@ -1,5 +1,6 @@
 "use client"
 
+// Profile page component for dive app
 import { useState } from "react"
 import { Pencil, Fish, User, ChevronRight, LogOut, HelpCircle, MessageSquare, FileText } from "lucide-react"
 
