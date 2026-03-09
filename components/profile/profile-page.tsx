@@ -3,6 +3,7 @@
 // Profile page component for dive app
 import { useState } from "react"
 import { Pencil, Fish, User, ChevronRight, LogOut, HelpCircle, MessageSquare, FileText } from "lucide-react"
+import { EditProfilePage } from "./edit-profile-page"
 
 interface ProfileData {
     name: string
@@ -150,24 +151,58 @@ interface ProfilePageProps {
 }
 
 export function ProfilePage({ onClose }: ProfilePageProps) {
-    const [profile] = useState<ProfileData>(MOCK_PROFILE)
+    const [profile, setProfile] = useState<ProfileData>(MOCK_PROFILE)
+    const [showEditProfile, setShowEditProfile] = useState(false)
+
+    const handleSaveProfile = (data: {
+        displayName: string
+        username: string
+        diverLevel: string
+        coverImage: string
+        avatarImage: string
+    }) => {
+        setProfile((prev) => ({
+            ...prev,
+            name: data.displayName,
+            username: `@${data.username}`,
+            level: data.diverLevel,
+            coverImage: data.coverImage,
+            avatarImage: data.avatarImage,
+        }))
+    }
 
     return (
-        <div
-            style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: "#B8D4E8",
-                overflowY: "auto",
-                overflowX: "hidden",
-                zIndex: 1000,
-                paddingBottom: "100px",
-            }}
-        >
-            {/* Cover Image Section */}
+        <>
+            {/* Edit Profile Modal */}
+            {showEditProfile && (
+                <EditProfilePage
+                    onClose={() => setShowEditProfile(false)}
+                    onSave={handleSaveProfile}
+                    initialData={{
+                        displayName: profile.name,
+                        username: profile.username.replace("@", ""),
+                        diverLevel: profile.level,
+                        coverImage: profile.coverImage,
+                        avatarImage: profile.avatarImage,
+                    }}
+                />
+            )}
+
+            <div
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "#B8D4E8",
+                    overflowY: "auto",
+                    overflowX: "hidden",
+                    zIndex: 1000,
+                    paddingBottom: "100px",
+                }}
+            >
+                {/* Cover Image Section */}
             <div style={{ position: "relative", height: "180px" }}>
                 <img
                     src={profile.coverImage}
@@ -180,28 +215,29 @@ export function ProfilePage({ onClose }: ProfilePageProps) {
                 />
                 
                 {/* Edit Profile Button */}
-                <button
-                    style={{
-                        position: "absolute",
-                        top: "16px",
-                        right: "16px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        backgroundColor: "white",
-                        border: "none",
-                        borderRadius: "24px",
-                        padding: "10px 16px",
-                        cursor: "pointer",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        color: "#1A2744",
-                    }}
-                >
-                    Edit profile
-                    <Pencil size={16} />
-                </button>
+                    <button
+                        onClick={() => setShowEditProfile(true)}
+                        style={{
+                            position: "absolute",
+                            top: "16px",
+                            right: "16px",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            backgroundColor: "white",
+                            border: "none",
+                            borderRadius: "24px",
+                            padding: "10px 16px",
+                            cursor: "pointer",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                            fontWeight: 600,
+                            fontSize: "14px",
+                            color: "#1A2744",
+                        }}
+                    >
+                        Edit profile
+                        <Pencil size={16} />
+                    </button>
 
                 {/* Avatar */}
                 <div
@@ -682,7 +718,8 @@ export function ProfilePage({ onClose }: ProfilePageProps) {
                     <SettingsItem icon={<MessageSquare size={20} color="#5A6A7A" />} label="Feedback" isLast />
                 </div>
             </div>
-        </div>
+            </div>
+        </>
     )
 }
 
