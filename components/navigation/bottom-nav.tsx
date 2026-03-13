@@ -85,10 +85,13 @@ export function BottomNav({ activeTab, onTabChange, onSearchOpen, searchOpen }: 
             <div
                 style={{
                     display: "flex",
-                    background: "#94E0FF",
+                    background: "rgba(255, 255, 255, 0.12)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
                     borderRadius: "32px",
                     padding: "8px 12px",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
                     flex: 1,
                     justifyContent: "space-around",
                     gap: "4px",
@@ -107,12 +110,18 @@ export function BottomNav({ activeTab, onTabChange, onSearchOpen, searchOpen }: 
                                 flexDirection: "column",
                                 alignItems: "center",
                                 gap: "4px",
-                                background: isActive ? "rgba(255,255,255,0.4)" : "transparent",
+                                background: isActive ? "rgba(255, 255, 255, 0.2)" : "transparent",
                                 border: "none",
                                 cursor: "pointer",
                                 padding: "8px 4px",
                                 borderRadius: "16px",
                                 transition: "all 0.2s ease-in-out",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = isActive ? "rgba(255, 255, 255, 0.25)" : "rgba(255, 255, 255, 0.12)"
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = isActive ? "rgba(255, 255, 255, 0.2)" : "transparent"
                             }}
                         >
                             {tab.custom === "mask" ? (

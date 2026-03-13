@@ -312,7 +312,179 @@ export function SearchBar({
                 <div style={{ display: "flex", gap: "8px", marginTop: "10px" }}>
                     {MAP_TABS.map((tab) => {
                         const isActive = activeMapTab === tab.id
-                        return (
+    return (
+        <div
+            style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                zIndex: 999,
+                padding: "16px",
+                paddingTop: "20px",
+                display: searchOpen ? "flex" : "flex",
+                flexDirection: "column",
+                gap: "12px",
+            }}
+        >
+            {/* Glassmorphism container */}
+            <div
+                style={{
+                    background: "rgba(255, 255, 255, 0.12)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    borderRadius: "24px",
+                    border: "1px solid rgba(255, 255, 255, 0.25)",
+                    padding: "12px 16px",
+                    display: "flex",
+                    gap: "8px",
+                    alignItems: "center",
+                }}
+            >
+                {/* Search Input */}
+                <div style={{ display: "flex", flex: 1, alignItems: "center", gap: "8px" }}>
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Search dive sites, trips, marine life"
+                        value={localSearchQuery}
+                        onChange={(e) => setLocalSearchQuery(e.target.value)}
+                        onFocus={() => setShowAutocomplete(true)}
+                        style={{
+                            flex: 1,
+                            border: "none",
+                            background: "transparent",
+                            color: "white",
+                            fontSize: "14px",
+                            outline: "none",
+                            fontFamily: "inherit",
+                        }}
+                        placeholder="Search dive sites, trips, marine life"
+                    />
+                </div>
+
+                {/* Filter Button */}
+                <button
+                    onClick={onToggleFilters}
+                    style={{
+                        background: "rgba(255, 255, 255, 0.15)",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "6px 8px",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)"
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)"
+                    }}
+                    title="Filter options"
+                >
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
+                        <path d="M4 6h16M8 12h8M10 18h4" />
+                    </svg>
+                </button>
+            </div>
+
+            {/* Glassmorphism tabs container */}
+            <div
+                style={{
+                    display: "flex",
+                    gap: "8px",
+                    alignItems: "center",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    borderRadius: "20px",
+                    padding: "8px",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                }}
+            >
+                {/* Tabs */}
+                {(["dive-sites", "trips", "marine-life"] as const).map((tab) => (
+                    <button
+                        key={tab}
+                        onClick={() => setActiveMapTab(tab)}
+                        style={{
+                            padding: "8px 16px",
+                            borderRadius: "16px",
+                            border: "none",
+                            background: activeMapTab === tab ? "rgba(255, 255, 255, 0.25)" : "transparent",
+                            color: "white",
+                            fontSize: "13px",
+                            fontWeight: activeMapTab === tab ? "600" : "500",
+                            cursor: "pointer",
+                            transition: "all 0.2s",
+                            whiteSpace: "nowrap",
+                        }}
+                        onMouseEnter={(e) => {
+                            if (activeMapTab !== tab) {
+                                e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)"
+                            }
+                        }}
+                        onMouseLeave={(e) => {
+                            if (activeMapTab !== tab) {
+                                e.currentTarget.style.background = "transparent"
+                            }
+                        }}
+                    >
+                        {tab === "marine-life" && (
+                            <span style={{ marginRight: "6px" }}>🐟</span>
+                        )}
+                        {tab === "dive-sites" ? "Dive Sites" : tab === "trips" ? "Trips" : "Marine Life"}
+                    </button>
+                ))}
+
+                {/* More button */}
+                <button
+                    style={{
+                        padding: "8px 12px",
+                        borderRadius: "16px",
+                        border: "none",
+                        background: "transparent",
+                        color: "white",
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.12)"
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "transparent"
+                    }}
+                    title="More options"
+                >
+                    •••
+                </button>
+            </div>
+        </div>
+    )
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveMapTab(tab.id)}

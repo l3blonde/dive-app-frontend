@@ -10,23 +10,22 @@ interface MapControlsProps {
 }
 
 export function MapControls({ onMarineSpeciesClick, mapMode = "dive-sites", onNearbyClick }: MapControlsProps) {
-    const SpeciesIcon = mapMode === "dive-sites" ? Fish : Anchor
-
     const buttonBase: React.CSSProperties = {
         position: "absolute",
-        right: "10px",
-        width: "40px",
-        height: "40px",
-        backgroundColor: "white",
+        right: "16px",
+        width: "48px",
+        height: "48px",
+        backgroundColor: "rgba(255, 255, 255, 0.15)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
         borderRadius: "12px",
-        border: "none",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+        border: "1px solid rgba(255, 255, 255, 0.25)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 10,
-        transition: "background-color 0.2s, transform 0.2s",
+        transition: "all 0.2s",
     }
 
     return (
@@ -41,14 +40,19 @@ export function MapControls({ onMarineSpeciesClick, mapMode = "dive-sites", onNe
                     ...buttonBase,
                     top: "32%",
                     transform: "translateY(-50%)",
-                    backgroundColor: mapMode === "marine-species" ? "#1A2744" : "white",
+                    backgroundColor: mapMode === "marine-species" ? "rgba(0, 194, 215, 0.3)" : "rgba(255, 255, 255, 0.15)",
+                    borderColor: mapMode === "marine-species" ? "rgba(0, 194, 215, 0.5)" : "rgba(255, 255, 255, 0.25)",
                 }}
                 title={mapMode === "dive-sites" ? "View marine species" : "View dive sites"}
                 aria-label={mapMode === "dive-sites" ? "Marine species mode" : "Dive sites mode"}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-50%) scale(1.05)" }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(-50%) scale(1)" }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = mapMode === "marine-species" ? "rgba(0, 194, 215, 0.4)" : "rgba(255, 255, 255, 0.25)"
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = mapMode === "marine-species" ? "rgba(0, 194, 215, 0.3)" : "rgba(255, 255, 255, 0.15)"
+                }}
             >
-                <Fish size={20} color={mapMode === "marine-species" ? "white" : "#333"} strokeWidth={2} />
+                <Fish size={22} color={mapMode === "marine-species" ? "#00C2D7" : "white"} strokeWidth={1.8} />
             </button>
 
             {/* Nearby dive sites — Anchor icon */}
@@ -56,21 +60,19 @@ export function MapControls({ onMarineSpeciesClick, mapMode = "dive-sites", onNe
                 onClick={onNearbyClick}
                 style={{
                     ...buttonBase,
-                    top: "calc(32% + 52px)",
+                    top: "calc(32% + 64px)",
                     transform: "translateY(-50%)",
                 }}
                 title="Nearby dive sites"
                 aria-label="Nearby dive sites"
                 onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#1A2744"
-                    ;(e.currentTarget.querySelector("svg") as SVGElement | null)?.setAttribute("stroke", "white")
+                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.25)"
                 }}
                 onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "white"
-                    ;(e.currentTarget.querySelector("svg") as SVGElement | null)?.setAttribute("stroke", "#333")
+                    e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.15)"
                 }}
             >
-                <Anchor size={20} color="#333" strokeWidth={2} />
+                <Anchor size={22} color="white" strokeWidth={1.8} />
             </button>
         </>
     )

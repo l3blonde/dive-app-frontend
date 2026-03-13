@@ -135,97 +135,105 @@ function CarouselCard({ site, onViewDetails, onAddToPlan }: CarouselCardProps) {
 
     return (
         <div
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
             style={{
                 minWidth: "300px",
-                width: "300px",
-                height: "190px",
+                width: "320px",
+                height: "200px",
                 position: "relative",
                 borderRadius: "12px",
                 overflow: "hidden",
                 cursor: "pointer",
                 scrollSnapAlign: "center",
-                boxShadow: hovered
-                    ? "0 12px 32px rgba(0,0,0,0.35)"
-                    : "0 6px 20px rgba(0,0,0,0.2)",
-                transform: hovered ? "translateY(-3px)" : "translateY(0)",
-                transition: "box-shadow 0.25s ease, transform 0.25s ease",
-                backgroundImage: `url(${site.image_url || "https://xu5qaaigiohvkyk8.public.blob.vercel-storage.com/site-placeholder.png"})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                flexShrink: 0,
+                background: "rgba(255, 255, 255, 0.08)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
+                boxShadow: hovered ? "0 12px 32px rgba(0, 194, 215, 0.25)" : "0 4px 12px rgba(0, 194, 215, 0.1)",
+                transition: "all 0.3s ease",
             }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
         >
-            {/* Dark gradient overlay */}
+            {/* Background image */}
             <div
                 style={{
+                    backgroundImage: `url(${site.image_url || "/placeholder.svg"})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    width: "100%",
+                    height: "100%",
                     position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)",
-                    pointerEvents: "none",
+                    top: 0,
+                    left: 0,
                 }}
             />
 
-            {/* Rating badge — top right */}
+            {/* Gradient overlay */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: "linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%)",
+                }}
+            />
+
+            {/* Rating badge - top right */}
             <div
                 style={{
                     position: "absolute",
                     top: "12px",
                     right: "12px",
+                    background: "rgba(255, 215, 0, 0.9)",
+                    backdropFilter: "blur(8px)",
+                    borderRadius: "20px",
+                    padding: "6px 12px",
                     display: "flex",
                     alignItems: "center",
                     gap: "4px",
-                    background: "rgba(26,39,68,0.85)",
-                    backdropFilter: "blur(6px)",
-                    WebkitBackdropFilter: "blur(6px)",
-                    borderRadius: "12px",
-                    padding: "4px 10px",
-                    pointerEvents: "none",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "white",
                 }}
             >
-                <Star size={12} fill="#FACC15" color="#FACC15" />
-                <span style={{ fontSize: "12px", fontWeight: 700, color: "white" }}>{ratingDisplay}</span>
+                <span>⭐</span>
+                <span>{ratingDisplay}</span>
+                <span style={{ fontSize: "11px", opacity: 0.9 }}>({diveCount})</span>
             </div>
 
-            {/* Bottom content */}
+            {/* Bottom content area */}
             <div
                 style={{
                     position: "absolute",
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: "12px 14px",
+                    padding: "16px",
+                    background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
                 }}
             >
-                {/* Site name */}
-                <h4
-                    style={{
-                        fontSize: "16px",
-                        fontWeight: 700,
-                        color: "white",
-                        margin: "0 0 2px 0",
-                        lineHeight: 1.2,
-                        textShadow: "0 1px 4px rgba(0,0,0,0.5)",
-                    }}
-                >
+                {/* Site name & location */}
+                <h3 style={{ color: "white", fontSize: "15px", fontWeight: "700", margin: "0 0 4px 0" }}>
                     {site.name}
-                </h4>
-
-                {/* Meta row */}
-                <p
-                    style={{
-                        fontSize: "12px",
-                        color: "rgba(255,255,255,0.8)",
-                        margin: "0 0 10px 0",
-                    }}
-                >
-                    {diveCount !== "—" && `${diveCount} Dives · `}{site.location_name}
+                </h3>
+                <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "12px", margin: "0 0 8px 0" }}>
+                    {site.location_name}
                 </p>
 
-                {/* CTA buttons row */}
+                {/* Site info chips */}
+                <div style={{ display: "flex", gap: "8px", marginBottom: "10px", flexWrap: "wrap" }}>
+                    <span style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", color: "white", padding: "3px 8px", borderRadius: "6px" }}>
+                        {site.max_depth || "—"}m depth
+                    </span>
+                    <span style={{ fontSize: "11px", background: "rgba(255,255,255,0.2)", color: "white", padding: "3px 8px", borderRadius: "6px" }}>
+                        Excellent visibility
+                    </span>
+                </div>
+
+                {/* CTA Buttons */}
                 <div style={{ display: "flex", gap: "8px" }}>
-                    {/* Add to Plan */}
                     <button
                         onClick={(e) => {
                             e.stopPropagation()
@@ -233,30 +241,25 @@ function CarouselCard({ site, onViewDetails, onAddToPlan }: CarouselCardProps) {
                         }}
                         style={{
                             flex: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: "6px",
-                            padding: "8px 0",
-                            borderRadius: "12px",
-                            border: "1.5px solid rgba(255,255,255,0.6)",
-                            background: "rgba(255,255,255,0.15)",
-                            backdropFilter: "blur(8px)",
-                            WebkitBackdropFilter: "blur(8px)",
+                            padding: "8px 12px",
+                            borderRadius: "8px",
+                            border: "1px solid rgba(255,255,255,0.4)",
+                            background: "rgba(255, 255, 255, 0.15)",
                             color: "white",
                             fontSize: "12px",
-                            fontWeight: 600,
+                            fontWeight: "600",
                             cursor: "pointer",
-                            transition: "background 0.2s",
+                            transition: "all 0.2s",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.25)" }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.15)" }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.25)"
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)"
+                        }}
                     >
-                        <BookmarkPlus size={14} color="white" />
-                        Add to Plan
+                        ★ Add to Plan
                     </button>
-
-                    {/* View Details */}
                     <button
                         onClick={(e) => {
                             e.stopPropagation()
@@ -264,24 +267,23 @@ function CarouselCard({ site, onViewDetails, onAddToPlan }: CarouselCardProps) {
                         }}
                         style={{
                             flex: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: "6px",
-                            padding: "8px 0",
-                            borderRadius: "12px",
+                            padding: "8px 12px",
+                            borderRadius: "8px",
                             border: "none",
-                            background: "#1A2744",
+                            background: "rgba(0, 194, 215, 0.8)",
                             color: "white",
                             fontSize: "12px",
-                            fontWeight: 600,
+                            fontWeight: "600",
                             cursor: "pointer",
-                            transition: "background 0.2s",
+                            transition: "all 0.2s",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.background = "#263660" }}
-                        onMouseLeave={(e) => { e.currentTarget.style.background = "#1A2744" }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "rgba(0, 194, 215, 1)"
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "rgba(0, 194, 215, 0.8)"
+                        }}
                     >
-                        <ArrowRight size={14} color="white" />
                         View Details
                     </button>
                 </div>

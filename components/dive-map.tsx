@@ -377,7 +377,52 @@ export function DiveMap() {
     }
 
     return (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "#4A90E2" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "#4A90E2", overflow: "hidden" }}>
+            {/* Animated underwater background */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: "linear-gradient(135deg, #062B3D 0%, #083B53 50%, #0C5A7A 100%)",
+                    zIndex: 0,
+                    overflow: "hidden",
+                }}
+            >
+                {/* Animated bubbles */}
+                {[...Array(8)].map((_, i) => (
+                    <div
+                        key={`bubble-${i}`}
+                        className="bubble"
+                        style={{
+                            left: `${Math.random() * 100}%`,
+                            width: `${Math.random() * 40 + 20}px`,
+                            height: `${Math.random() * 40 + 20}px`,
+                            animationDuration: `${Math.random() * 15 + 20}s`,
+                            animationDelay: `${Math.random() * 10}s`,
+                        }}
+                    />
+                ))}
+
+                {/* Light rays effect */}
+                <div
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "200%",
+                        height: "200%",
+                        background: "radial-gradient(ellipse at center top, rgba(0, 194, 215, 0.15) 0%, transparent 70%)",
+                        pointerEvents: "none",
+                    }}
+                />
+            </div>
+
+            {/* Relative container for map and controls */}
+            <div style={{ position: "relative", width: "100%", height: "100%", zIndex: 1 }}>
             <SearchBar
                 isOpen={searchOpen}
                 searchQuery={searchQuery}

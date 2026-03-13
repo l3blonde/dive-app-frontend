@@ -3,6 +3,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Ocean Color Palette */
+:root {
+    --ocean-deep: #062B3D;
+    --ocean-main: #083B53;
+    --ocean-surface: #0C5A7A;
+    --ocean-accent: #00C2D7;
+    --ocean-light: rgba(0, 194, 215, 0.3);
+}
+
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
@@ -208,4 +217,57 @@
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* Glassmorphism utilities */
+.glassmorphic {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glassmorphic-dark {
+    background: rgba(6, 43, 61, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 194, 215, 0.2);
+}
+
+/* Underwater background animation - floating bubbles */
+@keyframes float-bubble {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+    }
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 194, 215, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 194, 215, 0.6);
+    }
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), rgba(0, 194, 215, 0.2));
+    animation: float-bubble linear infinite;
+}
+
+.bubble-glow {
+    animation: glow-pulse 3s ease-in-out infinite;
 }
