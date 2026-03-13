@@ -26,7 +26,6 @@ export function DiveMap() {
     const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false)
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
-    console.log("searchOpen state:", searchOpen)
 
     useEffect(() => {
         console.log("searchOpen changed to:", searchOpen)
