@@ -703,6 +703,7 @@ export function DiveMap() {
           }
         }
       `}</style>
+            </div>
         </div>
     )
 }

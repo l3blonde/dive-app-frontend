@@ -483,63 +483,18 @@ export function SearchBar({
                     •••
                 </button>
             </div>
-        </div>
-    )
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveMapTab(tab.id)}
-                                style={{
-                                    padding: "7px 16px",
-                                    borderRadius: "12px",
-                                    border: "none",
-                                    cursor: "pointer",
-                                    fontSize: "13px",
-                                    fontWeight: isActive ? 700 : 500,
-                                    background: isActive ? "#1A2744" : "rgba(255,255,255,0.85)",
-                                    color: isActive ? "white" : "#374151",
-                                    boxShadow: isActive ? "0 2px 8px rgba(26,39,68,0.25)" : "0 2px 8px rgba(0,0,0,0.08)",
-                                    transition: "all 0.2s ease",
-                                    backdropFilter: "blur(8px)",
-                                    WebkitBackdropFilter: "blur(8px)",
-                                }}
-                            >
-                                {tab.label}
-                            </button>
-                        )
-                    })}
+
+            {/* Autocomplete */}
+            {showAutocomplete && (locationResults.length > 0 || matchingDiveSites.length > 0 || isLoadingResults) && (
+                <div style={{ marginTop: "10px" }}>
+                    <AutocompleteDropdown
+                        results={locationResults}
+                        diveSites={matchingDiveSites}
+                        onSelect={handleResultSelect}
+                        isLoading={isLoadingResults}
+                    />
                 </div>
-
-                {/* Autocomplete */}
-                {showAutocomplete && (locationResults.length > 0 || matchingDiveSites.length > 0 || isLoadingResults) && (
-                    <div style={{ marginTop: "10px" }}>
-                        <AutocompleteDropdown
-                            results={locationResults}
-                            diveSites={matchingDiveSites}
-                            onSelect={handleResultSelect}
-                            isLoading={isLoadingResults}
-                        />
-                    </div>
-                )}
-
-                {/* Results count */}
-                {localSearchQuery && !showAutocomplete && (
-                    <div style={{ marginTop: "12px", textAlign: "center" }}>
-                        <span
-                            style={{
-                                display: "inline-block",
-                                background: "#DBEAFE",
-                                color: "#1E40AF",
-                                padding: "6px 14px",
-                                borderRadius: "12px",
-                                fontSize: "13px",
-                                fontWeight: 500,
-                            }}
-                        >
-                            {resultsCount} {resultsCount === 1 ? "result" : "results"}
-                        </span>
-                    </div>
-                )}
-            </div>
+            )}
 
             {showFilters && (
                 <FilterChips
@@ -549,6 +504,6 @@ export function SearchBar({
                     onClose={onToggleFilters}
                 />
             )}
-        </>
+        </div>
     )
 }

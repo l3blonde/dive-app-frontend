@@ -157,7 +157,7 @@ function CarouselCard({ site, onViewDetails, onAddToPlan }: CarouselCardProps) {
             {/* Background image */}
             <div
                 style={{
-                    backgroundImage: `url(${site.image_url || "/placeholder.svg"})`,
+                    backgroundImage: `url(${site.image_url || "https://xu5qaaigiohvkyk8.public.blob.vercel-storage.com/site-placeholder.png"})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     width: "100%",

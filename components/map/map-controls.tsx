@@ -12,14 +12,15 @@ interface MapControlsProps {
 export function MapControls({ onMarineSpeciesClick, mapMode = "dive-sites", onNearbyClick }: MapControlsProps) {
     const buttonBase: React.CSSProperties = {
         position: "absolute",
-        right: "16px",
-        width: "48px",
-        height: "48px",
+        right: "10px",
+        width: "40px",
+        height: "40px",
         backgroundColor: "rgba(255, 255, 255, 0.15)",
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
-        borderRadius: "12px",
+        borderRadius: "4px",
         border: "1px solid rgba(255, 255, 255, 0.25)",
+        boxShadow: "0 0 12px rgba(0, 194, 215, 0.3)",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
@@ -60,7 +61,7 @@ export function MapControls({ onMarineSpeciesClick, mapMode = "dive-sites", onNe
                 onClick={onNearbyClick}
                 style={{
                     ...buttonBase,
-                    top: "calc(32% + 64px)",
+                    top: "calc(32% + 52px)",
                     transform: "translateY(-50%)",
                 }}
                 title="Nearby dive sites"
