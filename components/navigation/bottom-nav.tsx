@@ -110,18 +110,31 @@ export function BottomNav({ activeTab, onTabChange, onSearchOpen, searchOpen }: 
                                 flexDirection: "column",
                                 alignItems: "center",
                                 gap: "4px",
-                                background: isActive ? "rgba(255, 255, 255, 0.2)" : "transparent",
-                                border: "none",
+                                background: isActive 
+                                    ? "rgba(0, 194, 215, 0.35)" 
+                                    : "transparent",
+                                border: isActive ? "1.5px solid rgba(0, 194, 215, 0.6)" : "none",
                                 cursor: "pointer",
                                 padding: "8px 4px",
                                 borderRadius: "16px",
-                                transition: "all 0.2s ease-in-out",
+                                transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                                boxShadow: isActive 
+                                    ? "0 0 20px rgba(0, 194, 215, 0.5), inset 0 0 15px rgba(0, 194, 215, 0.2)" 
+                                    : "none",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.background = isActive ? "rgba(255, 255, 255, 0.25)" : "rgba(255, 255, 255, 0.12)"
+                                if (isActive) {
+                                    e.currentTarget.style.boxShadow = "0 0 28px rgba(0, 194, 215, 0.7), inset 0 0 20px rgba(0, 194, 215, 0.3)"
+                                } else {
+                                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)"
+                                }
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.background = isActive ? "rgba(255, 255, 255, 0.2)" : "transparent"
+                                if (isActive) {
+                                    e.currentTarget.style.boxShadow = "0 0 20px rgba(0, 194, 215, 0.5), inset 0 0 15px rgba(0, 194, 215, 0.2)"
+                                } else {
+                                    e.currentTarget.style.background = "transparent"
+                                }
                             }}
                         >
                             {tab.custom === "mask" ? (
