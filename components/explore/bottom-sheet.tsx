@@ -205,9 +205,6 @@ export function BottomSheet({
                             boxShadow: "0 0 12px rgba(0, 194, 215, 0.6), inset 0 1px 0 rgba(255,255,255,0.2)",
                         }}
                     />
-                            boxShadow: "0 0 8px rgba(0, 194, 215, 0.4)",
-                        }}
-                    />
                 </div>
 
                 {/* Filter Row: Filter icon + Sort + Nearby + Content chips */}
