@@ -465,23 +465,25 @@ export function DiveMap() {
                     left: 0,
                 }}
             >
-                <MapControls 
-                    onMarineSpeciesClick={handleMarineSpeciesClick}
-                    mapMode={isSpeciesMode ? "marine-species" : "dive-sites"}
-                    onZoomIn={() => mapRef.current?.zoomIn()}
-                    onZoomOut={() => mapRef.current?.zoomOut()}
-                    onLocate={() => {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition((position) => {
-                                mapRef.current?.flyTo({
-                                    center: [position.coords.longitude, position.coords.latitude],
-                                    zoom: 12,
-                                    duration: 2000,
-                                })
+                            <MapControls 
+                onMarineSpeciesClick={handleMarineSpeciesClick}
+                mapMode={isSpeciesMode ? "marine-species" : "dive-sites"}
+                onZoomIn={() => mapRef.current?.zoomIn()}
+                onZoomOut={() => mapRef.current?.zoomOut()}
+                onLocate={() => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            mapRef.current?.flyTo({
+                                center: [position.coords.longitude, position.coords.latitude],
+                                zoom: 12,
+                                duration: 2000,
                             })
-                        }
-                    }}
-                />
+                        })
+                    }
+                }}
+                onSearchToggle={() => setSearchOpen(!searchOpen)}
+                searchOpen={searchOpen}
+            />
 
                 {!isSpeciesMode &&
                     !isSpeciesBrowserOpen &&
