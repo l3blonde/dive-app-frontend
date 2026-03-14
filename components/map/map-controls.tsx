@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin, Plus, Minus, Compass, Fish, Waves, Search } from "lucide-react"
+import { MapPin, Plus, Minus, Compass, Fish, Waves } from "lucide-react"
 
 interface MapControlsProps {
     onMarineSpeciesClick: () => void
@@ -44,29 +44,6 @@ export function MapControls({
         transition: "all 0.25s ease-out",
     }
 
-    // Search pill style
-    const searchPillStyle: React.CSSProperties = {
-        padding: "8px 16px",
-        backgroundColor: "rgba(0, 194, 215, 0.14)",
-        backgroundImage: "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.25), rgba(0,194,215,0.12) 30%, rgba(4,24,38,0.55))",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderRadius: "9999px",
-        border: "1.5px solid rgba(0, 194, 215, 0.4)",
-        boxShadow: [
-            "0 0 18px rgba(0, 194, 215, 0.5)",
-            "0 0 36px rgba(0, 194, 215, 0.25)",
-            "inset 0 0 10px rgba(0, 194, 215, 0.2)",
-            "inset 1px 1px 4px rgba(255, 255, 255, 0.15)",
-        ].join(", "),
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "6px",
-        transition: "all 0.25s ease-out",
-    }
-
     const handleBubbleMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.currentTarget.style.backgroundColor = "rgba(0, 194, 215, 0.22)"
         e.currentTarget.style.boxShadow = [
@@ -96,59 +73,19 @@ export function MapControls({
         e.currentTarget.style.boxShadow = glow
     }
 
-    const handleSearchMouseEnter = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.currentTarget.style.backgroundColor = "rgba(0, 194, 215, 0.2)"
-        e.currentTarget.style.boxShadow = [
-            "0 0 24px rgba(0, 194, 215, 0.65)",
-            "0 0 48px rgba(0, 194, 215, 0.35)",
-            "inset 0 0 12px rgba(0, 194, 215, 0.28)",
-            "inset 1px 1px 5px rgba(255, 255, 255, 0.2)",
-        ].join(", ")
-    }
-
-    const handleSearchMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.currentTarget.style.backgroundColor = "rgba(0, 194, 215, 0.14)"
-        e.currentTarget.style.boxShadow = [
-            "0 0 18px rgba(0, 194, 215, 0.5)",
-            "0 0 36px rgba(0, 194, 215, 0.25)",
-            "inset 0 0 10px rgba(0, 194, 215, 0.2)",
-            "inset 1px 1px 4px rgba(255, 255, 255, 0.15)",
-        ].join(", ")
-    }
-
     return (
         <div
             style={{
                 position: "absolute",
                 top: "100px",
-                right: "16px",
+                right: "12px",
                 display: "flex",
                 flexDirection: "column",
-                gap: "12px",
+                alignItems: "flex-end",
+                gap: "8px",
                 zIndex: 10,
             }}
         >
-            {/* Search Toggle Pill */}
-            <button
-                onClick={onSearchToggle}
-                style={{
-                    ...searchPillStyle,
-                    backgroundColor: searchOpen ? "rgba(0, 194, 215, 0.2)" : "rgba(0, 194, 215, 0.14)",
-                }}
-                title="Toggle search"
-                aria-label="Toggle search"
-                onMouseEnter={handleSearchMouseEnter}
-                onMouseLeave={handleSearchMouseLeave}
-            >
-                <Search size={18} color="#00C2D7" strokeWidth={1.8} />
-                <span style={{ fontSize: "11px", color: "#00C2D7", fontWeight: "600", letterSpacing: "0.02em" }}>
-                    SEARCH
-                </span>
-            </button>
-
-            {/* Gap spacer */}
-            <div style={{ height: "4px" }} />
-
             {/* Location / Geolocate */}
             <button
                 onClick={onLocate}
