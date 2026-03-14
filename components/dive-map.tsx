@@ -17,6 +17,7 @@ import { MapMarker } from "./map/map-marker"
 import { getDifficultyIcon } from "@/lib/utils/dive-site"
 import { SpeciesPopup } from "./marine-species/species-popup"
 import { ProfilePage } from "./profile/profile-page"
+import { FilterPanel, type FilterState } from "./explore/filter-panel"
 
 type DiveSiteWithMarineLife = DiveSite & { marine_life?: string }
 
@@ -34,6 +35,14 @@ export function DiveMap() {
     const [searchQuery, setSearchQuery] = useState("")
     const [filters, setFilters] = useState<Record<string, any>>({})
     const [showFilters, setShowFilters] = useState(false)
+    const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false)
+    const [advancedFilters, setAdvancedFilters] = useState<FilterState>({
+        depthRange: [0, 60],
+        difficulty: [],
+        distanceRadius: 100,
+        tripType: [],
+        priceRange: [0, 5000],
+    })
     const [activeTab, setActiveTab] = useState("map")
     const mapRef = useRef<MapRef | null>(null)
     const [currentCardIndex, setCurrentCardIndex] = useState(0)
@@ -434,7 +443,7 @@ export function DiveMap() {
             <SearchBar
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
-                onToggleFilters={() => setShowFilters(!showFilters)}
+                onToggleFilters={() => setIsFilterPanelOpen(true)}
             />
 
             {isSpeciesBrowserOpen && (
@@ -718,6 +727,14 @@ export function DiveMap() {
                     }
                 />
             )}
+
+            {/* Filter Panel - shared between search bar and bottom sheet */}
+            <FilterPanel
+                isOpen={isFilterPanelOpen}
+                onClose={() => setIsFilterPanelOpen(false)}
+                filters={advancedFilters}
+                onApply={setAdvancedFilters}
+            />
 
             <BottomNav
                 activeTab={activeTab}

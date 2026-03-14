@@ -1,22 +1,20 @@
 "use client"
 
-import type React from "react"
-import { Fish } from "lucide-react"
+import { MapPin } from "lucide-react"
 
-interface SpeciesMarkerProps {
-    speciesIcon?: React.ReactNode
+interface DiveSiteMarkerProps {
     count?: number
     isSelected?: boolean
     onClick: () => void
 }
 
-export function SpeciesMarker({ speciesIcon, count, isSelected = false, onClick }: SpeciesMarkerProps) {
+export function DiveSiteMarker({ count, isSelected = false, onClick }: DiveSiteMarkerProps) {
     return (
         <div
             onClick={onClick}
             style={{
-                width: "56px",
-                height: "56px",
+                width: "52px",
+                height: "52px",
                 cursor: "pointer",
                 position: "relative",
                 transition: "transform 0.25s ease-out",
@@ -28,15 +26,15 @@ export function SpeciesMarker({ speciesIcon, count, isSelected = false, onClick 
                 e.currentTarget.style.transform = "scale(1)"
             }}
         >
-            {/* 3D Bubble with aqua glow - slightly different tint for marine life */}
+            {/* 3D Bubble with aqua glow */}
             <div
                 style={{
                     position: "absolute",
                     inset: 0,
                     borderRadius: "50%",
                     background: isSelected
-                        ? "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.45), rgba(0,180,220,0.35) 35%, rgba(4,28,44,0.7))"
-                        : "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), rgba(0,180,220,0.22) 35%, rgba(4,28,44,0.65))",
+                        ? "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.45), rgba(0,194,215,0.35) 35%, rgba(4,24,38,0.7))"
+                        : "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.35), rgba(0,194,215,0.22) 35%, rgba(4,24,38,0.65))",
                     border: isSelected ? "2px solid rgba(0, 194, 215, 0.9)" : "1.5px solid rgba(0, 194, 215, 0.55)",
                     boxShadow: isSelected
                         ? [
@@ -61,37 +59,30 @@ export function SpeciesMarker({ speciesIcon, count, isSelected = false, onClick 
                     transition: "all 0.25s ease-out",
                 }}
             >
-                {/* Species icon with glow */}
-                <div style={{ filter: "drop-shadow(0 0 6px rgba(0, 194, 215, 0.7))" }}>
-                    {speciesIcon || <Fish size={24} color="#FFFFFF" strokeWidth={1.8} />}
-                </div>
+                {/* Show count number OR MapPin icon */}
+                {count !== undefined ? (
+                    <span
+                        style={{
+                            color: "#FFFFFF",
+                            fontSize: "16px",
+                            fontWeight: "700",
+                            textShadow: "0 0 12px rgba(0, 194, 215, 0.8), 0 2px 4px rgba(0,0,0,0.5)",
+                            letterSpacing: "-0.02em",
+                        }}
+                    >
+                        {count}
+                    </span>
+                ) : (
+                    <MapPin 
+                        size={22} 
+                        color="#FFFFFF"
+                        strokeWidth={2}
+                        style={{
+                            filter: "drop-shadow(0 0 6px rgba(0, 194, 215, 0.7))",
+                        }}
+                    />
+                )}
             </div>
-
-            {/* Count badge if multiple sightings */}
-            {count && count > 1 && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "-4px",
-                        right: "-4px",
-                        width: "22px",
-                        height: "22px",
-                        borderRadius: "50%",
-                        background: "radial-gradient(circle at 30% 30%, rgba(0,194,215,0.9), rgba(0,140,180,0.85))",
-                        border: "1.5px solid rgba(255, 255, 255, 0.5)",
-                        boxShadow: "0 0 10px rgba(0, 194, 215, 0.7), 0 2px 4px rgba(0,0,0,0.4)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "10px",
-                        fontWeight: "700",
-                        color: "#FFFFFF",
-                        textShadow: "0 1px 2px rgba(0,0,0,0.4)",
-                    }}
-                >
-                    {count}
-                </div>
-            )}
 
             {/* Pulse animation ring for selected state */}
             {isSelected && (
@@ -101,14 +92,14 @@ export function SpeciesMarker({ speciesIcon, count, isSelected = false, onClick 
                         inset: "-4px",
                         borderRadius: "50%",
                         border: "2px solid rgba(0, 194, 215, 0.5)",
-                        animation: "species-marker-pulse 2s ease-out infinite",
+                        animation: "marker-pulse-ring 2s ease-out infinite",
                     }}
                 />
             )}
 
             {/* Inject keyframes */}
             <style>{`
-                @keyframes species-marker-pulse {
+                @keyframes marker-pulse-ring {
                     0% {
                         transform: scale(1);
                         opacity: 0.6;
