@@ -18,6 +18,7 @@ import { getDifficultyIcon } from "@/lib/utils/dive-site"
 import { SpeciesPopup } from "./marine-species/species-popup"
 import { ProfilePage } from "./profile/profile-page"
 import { FilterPanel, type FilterState } from "./search/filter-panel"
+import type { SortOption } from "./search/sort-dropdown"
 
 type DiveSiteWithMarineLife = DiveSite & { marine_life?: string }
 
@@ -46,7 +47,7 @@ export function DiveMap() {
     // New state for bottom sheet content control
     const [activeContentType, setActiveContentType] = useState<"Dive Sites" | "Dive Trips" | "Marine Life">("Dive Sites")
     const [isNearbyActive, setIsNearbyActive] = useState(false)
-    const [sortOption, setSortOption] = useState<string>("rating")
+    const [sortOption, setSortOption] = useState<SortOption>("rating")
     const [activeTab, setActiveTab] = useState("map")
     const mapRef = useRef<MapRef | null>(null)
     const [currentCardIndex, setCurrentCardIndex] = useState(0)

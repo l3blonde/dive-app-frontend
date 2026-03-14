@@ -18,8 +18,8 @@ interface BottomSheetProps {
     onContentTypeChange: (type: "Dive Sites" | "Dive Trips" | "Marine Life") => void
     isNearbyActive: boolean
     onNearbyChange: (active: boolean) => void
-    sortOption: string
-    onSortChange: (option: string) => void
+    sortOption: SortOption
+    onSortChange: (option: SortOption) => void
     onFilterClick: () => void
 }
 
@@ -127,13 +127,15 @@ export function BottomSheet({
     }
 
     const getContentCount = () => {
-        switch (activeContent) {
+        switch (activeContentType) {
             case "Dive Sites":
                 return diveSites.length
             case "Dive Trips":
                 return diveTrips.length
             case "Marine Life":
                 return diveSites.length // Placeholder
+            default:
+                return 0
         }
     }
 
