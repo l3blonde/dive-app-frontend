@@ -251,25 +251,36 @@ export function BottomSheet({ diveSites, onClose, onViewDetails, onAddToPlan }: 
                                 </p>
 
                                 {/* Marine Life Tags */}
-                                {site.marine_life && site.marine_life.length > 0 && (
-                                    <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
-                                        {site.marine_life.slice(0, 3).map((species: string) => (
-                                            <span
-                                                key={species}
-                                                style={{
-                                                    fontSize: "10px",
-                                                    background: "rgba(0, 194, 215, 0.15)",
-                                                    color: "#00C2D7",
-                                                    padding: "2px 8px",
-                                                    borderRadius: "12px",
-                                                    border: "0.5px solid rgba(0, 194, 215, 0.3)",
-                                                }}
-                                            >
-                                                {species}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
+                                {(() => {
+                                    let marineLifeArr: string[] = []
+                                    try {
+                                        if (typeof site.marine_life === "string" && site.marine_life) {
+                                            marineLifeArr = JSON.parse(site.marine_life)
+                                        } else if (Array.isArray(site.marine_life)) {
+                                            marineLifeArr = site.marine_life
+                                        }
+                                    } catch {}
+                                    return marineLifeArr.length > 0 ? (
+                                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                                            {marineLifeArr.slice(0, 3).map((species: string, idx: number) => (
+                                                <span
+                                                    key={`${species}-${idx}`}
+                                                    style={{
+                                                        fontSize: "10px",
+                                                        background: "rgba(0, 194, 215, 0.15)",
+                                                        color: "#00C2D7",
+                                                        padding: "2px 8px",
+                                                        borderRadius: "9999px",
+                                                        border: "0.5px solid rgba(0, 194, 215, 0.3)",
+                                                        textTransform: "capitalize",
+                                                    }}
+                                                >
+                                                    {species.replace(/-/g, " ")}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    ) : null
+                                })()}
                             </div>
 
                             {/* Distance Badge */}

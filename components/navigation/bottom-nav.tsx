@@ -106,22 +106,23 @@ export function BottomNav({ activeTab, onTabChange, onSearchOpen, searchOpen }: 
                             key={tab.id}
                             onClick={() => onTabChange(tab.id)}
                             style={{
-                                flex: 1,
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                gap: "4px",
-                                background: isActive 
-                                    ? "rgba(0, 194, 215, 0.2)" 
+                                justifyContent: "center",
+                                gap: "3px",
+                                background: isActive
+                                    ? "rgba(0, 194, 215, 0.2)"
                                     : "transparent",
-                                border: isActive ? "1.5px solid rgba(0, 194, 215, 0.6)" : "none",
+                                border: isActive ? "1px solid rgba(0, 194, 215, 0.5)" : "1px solid transparent",
                                 cursor: "pointer",
-                                padding: "8px 4px",
+                                padding: isActive ? "7px 20px" : "7px 10px",
                                 borderRadius: "9999px",
-                                transition: "all 0.2s ease-out",
-                                boxShadow: isActive 
-                                    ? "0 0 24px rgba(0, 194, 215, 0.6), 0 0 48px rgba(0, 194, 215, 0.3), inset 0 0 16px rgba(0, 194, 215, 0.15)"
+                                transition: "all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                                boxShadow: isActive
+                                    ? "0 0 16px rgba(0, 194, 215, 0.5), 0 0 32px rgba(0, 194, 215, 0.25), inset 0 0 12px rgba(0, 194, 215, 0.1)"
                                     : "none",
+                                minWidth: isActive ? "72px" : "48px",
                             }}
                             onMouseEnter={(e) => {
                                 if (!isActive) {
