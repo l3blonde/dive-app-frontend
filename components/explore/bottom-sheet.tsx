@@ -463,10 +463,10 @@ function DiveSiteCard({
                             ))}
                         </div>
                         <span style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.6)" }}>
-                            {(site.rating || 0).toFixed(1)} ({site.dives_count || 0})
+                            {(site.rating || 0).toFixed(1)}
                         </span>
                         <span style={{ fontSize: "11px", color: "rgba(0, 194, 215, 0.8)", marginLeft: "auto" }}>
-                            {site.distance || "?"} km
+                            {site.difficulty}
                         </span>
                     </div>
 
@@ -478,7 +478,7 @@ function DiveSiteCard({
                             margin: 0,
                         }}
                     >
-                        Depth {site.depth}m · {site.visibility}
+                        Depth {site.min_depth}-{site.max_depth}m · {site.best_season}
                     </p>
 
                     {/* Marine Life Tags */}
