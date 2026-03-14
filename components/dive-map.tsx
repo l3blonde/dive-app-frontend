@@ -18,6 +18,7 @@ import { getDifficultyIcon } from "@/lib/utils/dive-site"
 import { SpeciesPopup } from "./marine-species/species-popup"
 import { ProfilePage } from "./profile/profile-page"
 import type { SortOption } from "./explore/bottom-sheet"
+import { FALLBACK_DIVE_SITES } from "@/lib/data/dive-sites"
 
 type DiveSiteWithMarineLife = DiveSite & { marine_life?: string }
 
@@ -181,8 +182,10 @@ export function DiveMap() {
         async function fetchDiveSites() {
             const { data, error } = await supabase.from("dive_sites").select("*").order("name")
 
-            if (error) {
-                console.error("Error fetching dive sites:", error)
+            if (error || !data || data.length === 0) {
+                console.error("Error fetching dive sites or empty:", error)
+                console.log("Using fallback dive sites data")
+                setDiveSites(FALLBACK_DIVE_SITES as DiveSiteWithMarineLife[])
             } else {
                 console.log(`Loaded ${data?.length || 0} dive sites from database`)
                 setDiveSites((data || []) as DiveSiteWithMarineLife[])

@@ -308,7 +308,7 @@ export function BottomSheet({
                 </div>
             )}
 
-            {/* ── Content count header ───────────────────────────────────────── */}
+            {/* ── Content count header ───���───────────────────────────────────── */}
             <div style={{ padding: "0 16px 8px", textAlign: "center", flexShrink: 0 }}>
                 <span style={{ fontSize: "14px", fontWeight: "600", color: "#00C2D7", textShadow: "0 0 8px rgba(0,194,215,0.4)" }}>
                     {getContentCount()} {activeContentType.toLowerCase()}
@@ -379,19 +379,6 @@ export function BottomSheet({
                             )}
                         </div>
                     )}
-
-                {/* Dive Trips */}
-                {activeContentType === "Dive Trips" && filteredTrips.map((trip) => (
-                    <DiveTripCard key={trip.id} trip={trip} onViewDetails={onViewTripDetails} onAddToPlan={onAddTripToPlan} />
-                ))}
-                {activeContentType === "Dive Trips" && filteredTrips.length === 0 && (
-                    <EmptyState icon={<Anchor size={32} color="rgba(0,194,215,0.4)" />} label="No dive trips match your filters" />
-                )}
-
-                {/* Marine Life */}
-                {activeContentType === "Marine Life" && filteredSpecies.map((species) => (
-                    <MarineLifeCard key={species.id} species={species} />
-                ))}
             </div>
         </div>
     )
@@ -464,5 +451,3 @@ function MarineLifeCard({ species }: { species: MarineSpecies }) {
         </div>
     )
 }
-
-export { BottomSheet }

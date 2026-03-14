@@ -18,8 +18,7 @@ export function DiveSiteCard({ site, onViewDetails, onAddToPlan }: DiveSiteCardP
                 WebkitBackdropFilter: "blur(16px)",
                 border: "1px solid rgba(0, 194, 215, 0.3)",
                 borderRadius: "16px",
-                padding: "16px",
-                marginBottom: "12px",
+                padding: "12px",
                 overflow: "hidden",
                 boxShadow: [
                     "0 0 12px rgba(0, 194, 215, 0.2)",
